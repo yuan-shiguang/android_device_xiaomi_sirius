@@ -20,6 +20,7 @@ PRODUCT_RELEASE_NAME := sirius
 DEVICE_PATH := device/xiaomi/$(PRODUCT_RELEASE_NAME)
 
 # Inherit from the common Open Source product configuration
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 
 # Inherit from the device-specific device.mk (if it exists)
