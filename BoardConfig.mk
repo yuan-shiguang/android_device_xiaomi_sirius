@@ -121,3 +121,6 @@ TW_USE_LEDS_HAPTICS := true
 TW_USE_TOOLBOX := true
 TW_EXCLUDE_TWRPAPP := true
 TW_CUSTOM_CPU_TEMP_PATH := /sys/devices/virtual/thermal/thermal_zone9/temp
+
+OF_MAINTAINER :=Yuanshiguang
+OF_USE_LEGACY_BATTERY_SERVICES=1
