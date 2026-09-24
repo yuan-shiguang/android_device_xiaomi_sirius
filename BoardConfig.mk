@@ -77,8 +77,30 @@ BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
-TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
 TARGET_BOARD_INFO_FILE := $(DEVICE_PATH)/board-info.txt
+
+# Dynamic partitions (retrofitted super partition)
+ifeq ($(FOX_USE_DYNAMIC_PARTITIONS),1)
+    BOARD_SUPER_PARTITION_SIZE := 6442450944
+    BOARD_SUPER_PARTITION_METADATA_DEVICE := system
+    BOARD_SUPER_PARTITION_BLOCK_DEVICES := system vendor cust
+    BOARD_SUPER_PARTITION_SYSTEM_DEVICE_SIZE := 3758096384
+    BOARD_SUPER_PARTITION_VENDOR_DEVICE_SIZE := 1610612736
+    BOARD_SUPER_PARTITION_CUST_DEVICE_SIZE := 1073741824
+    BOARD_SUPER_PARTITION_GROUPS := qti_dynamic_partitions
+    BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := \
+        system \
+        system_ext \
+        product \
+        vendor \
+        odm
+    BOARD_QTI_DYNAMIC_PARTITIONS_SIZE := 6438256640 # (BOARD_SUPER_PARTITION_SIZE - 4MiB)
+    TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/fstab_files/recovery-dynamic.fstab
+    PRODUCT_COPY_FILES += $(DEVICE_PATH)/recovery/fstab_files/twrp-dynamic.flags:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/twrp.flags
+else
+    TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/fstab_files/recovery-non-dynamic.fstab
+    PRODUCT_COPY_FILES += $(DEVICE_PATH)/recovery/fstab_files/twrp-non-dynamic.flags:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/twrp.flags
+endif
 
 # Workaround for error copying vendor files to recovery ramdisk
 TARGET_COPY_OUT_VENDOR := vendor
