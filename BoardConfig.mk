@@ -80,7 +80,7 @@ TARGET_USERIMAGES_USE_F2FS := true
 TARGET_BOARD_INFO_FILE := $(DEVICE_PATH)/board-info.txt
 
 # Dynamic partitions (retrofitted super partition)
-ifeq ($(FOX_USE_DYNAMIC_PARTITIONS),1)
+ifeq ($(FOX_USE_DYNAMIC_PARTITIONS),true)
     BOARD_SUPER_PARTITION_SIZE := 6442450944
     BOARD_SUPER_PARTITION_METADATA_DEVICE := system
     BOARD_SUPER_PARTITION_BLOCK_DEVICES := system vendor cust
@@ -95,11 +95,11 @@ ifeq ($(FOX_USE_DYNAMIC_PARTITIONS),1)
         vendor \
         odm
     BOARD_QTI_DYNAMIC_PARTITIONS_SIZE := 6438256640 # (BOARD_SUPER_PARTITION_SIZE - 4MiB)
-    TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/fstab_files/recovery-dynamic.fstab
-    PRODUCT_COPY_FILES += $(DEVICE_PATH)/recovery/fstab_files/twrp-dynamic.flags:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/twrp.flags
+    TARGET_RECOVERY_FSTAB := device/xiaomi/sdm710-common/fstab/xiaomi-sdm710-devs/recovery.fstab
+    PRODUCT_COPY_FILES += device/xiaomi/sdm710-common/fstab/xiaomi-sdm710-devs/twrp.flags:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/twrp.flags
 else
-    TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/fstab_files/recovery-non-dynamic.fstab
-    PRODUCT_COPY_FILES += $(DEVICE_PATH)/recovery/fstab_files/twrp-non-dynamic.flags:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/twrp.flags
+    TARGET_RECOVERY_FSTAB := device/xiaomi/sdm710-common/fstab/stock/recovery.fstab
+    PRODUCT_COPY_FILES += device/xiaomi/sdm710-common/fstab/stock/twrp.flags:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/twrp.flags
 endif
 
 # Workaround for error copying vendor files to recovery ramdisk

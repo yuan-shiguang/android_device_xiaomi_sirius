@@ -23,8 +23,8 @@ Camera  |Dual: 12 MP + 5 MP, f/1.9 aperture, Dual Pixel PDAF, dual-LED flash 20 
 ## Building
 Generally, see https://wiki.orangefox.tech/en/dev/building
 
-This device tree inherits from the common sdm845 device tree (device/xiaomi/sdm845-common),
-which is cloned automatically by vendorsetup.sh.
+This device tree uses the recovery fstab and TWRP flags from the common sdm710 device tree
+(device/xiaomi/sdm710-common). Everything else is device-specific.
 
 ```
 lunch twrp_sirius-eng
