@@ -89,7 +89,12 @@ BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
-TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
+ifeq ($(FOX_USE_DYNAMIC_PARTITIONS),true)
+	TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery-dynamic.fstab
+else
+	TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
+endif
+
 TARGET_BOARD_INFO_FILE := $(DEVICE_PATH)/board-info.txt
 
 # Workaround for error copying vendor files to recovery ramdisk
